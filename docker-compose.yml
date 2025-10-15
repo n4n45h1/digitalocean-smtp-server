@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  stoat-mail-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: stoat-mail-server
+    ports:
+      - "25:25"      # SMTP
+      - "8080:8080"  # HTTP API
+    restart: unless-stopped
+    environment:
+      - TZ=Asia/Tokyo
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
